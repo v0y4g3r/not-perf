@@ -491,7 +491,7 @@ pub(crate) fn read_data< F >( args: ReadDataArgs, mut on_event: F ) -> Result< S
     where F: FnMut( Event )
 {
     let input_path = args.input_path;
-    let fp = fs::File::open( args.input_path ).map_err( |err| format!( "cannot open {:?}: {}", input_path.clone(), err ) )?;
+    let fp = fs::File::open( args.input_path ).map_err( |err| format!( "cannot open {:?}: {}", input_path, err ) )?;
     let mut reader = ArchiveReader::new( fp ).validate_header().unwrap().skip_unknown();
 
     let mut state = State {

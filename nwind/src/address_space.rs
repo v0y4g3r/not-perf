@@ -6,6 +6,7 @@ use std::fmt;
 use std::borrow::Cow;
 use std::ops::Deref;
 use std::sync::Mutex;
+use std::num::NonZeroUsize;
 use std::str;
 
 use byteorder::{self, ByteOrder};
@@ -327,7 +328,7 @@ impl SymbolDecodeCache {
     }
 
     pub fn put( &mut self, address: u64, raw_name: String, name: Option< String > ) {
-        let cache = self.cache.get_or_insert_with( || LruCache::new( 2000 ) );
+        let cache = self.cache.get_or_insert_with( || LruCache::new( NonZeroUsize::new(2000).unwrap() ) );
         cache.put( address, (raw_name, name) );
     }
 }
